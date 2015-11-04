@@ -1,0 +1,10 @@
+procedure Main()var Data_Output : , Data_Output : , Data_Input : , Data_Input : , Data_Output : ;
+begin
+
+
+if [cliente.idade >= 21 and cliente.tempoCNH > 2 ] then 
+begin
+	
+	
+end;
+end;

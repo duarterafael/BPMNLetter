@@ -1,0 +1,5 @@
+package poli.mestrado.document.management;
+
+public interface IDocument {
+	public void doDocument();
+}

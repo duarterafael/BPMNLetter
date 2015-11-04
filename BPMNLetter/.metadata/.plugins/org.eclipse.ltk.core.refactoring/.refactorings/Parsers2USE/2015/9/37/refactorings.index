@@ -1,0 +1,6 @@
+1441838136616	Rename method 'parserBpmn2Assl'
+1441973472048	Rename field 'ProcessList'
+1441984416540	Rename local variable 'eventTag'
+1442060869376	Rename package 'poli.mestrado.parser.bpmn2use.tag.poolLanes'
+1442073903122	Rename local variable 'nodeList'
+1442081947190	Rename field 'elementList'

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Yaoqiang/src/org/yaoqiang/bpmn/editor/images/exportUse.png&apos; to &apos;letter.png&apos;" description="Rename resource &apos;exportUse.png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/org/yaoqiang/bpmn/editor/images/exportUse.png" name="letter.png" stamp="1440804593742" updateReferences="true"/>
+</session>

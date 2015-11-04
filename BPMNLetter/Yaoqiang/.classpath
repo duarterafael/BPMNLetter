@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/bpmn-2.0-model-201310191500.jar"/>
+	<classpathentry kind="lib" path="lib/h2-1.3.172.jar"/>
+	<classpathentry kind="lib" path="lib/jgraphx-2.2.0.5-b01.jar"/>
+	<classpathentry kind="lib" path="lib/json.jar"/>
+	<classpathentry kind="lib" path="lib/rsyntaxtextarea.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AutoCompleteComponent"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Parsers2USE"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

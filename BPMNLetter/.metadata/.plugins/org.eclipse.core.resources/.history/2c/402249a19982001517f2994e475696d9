@@ -1,0 +1,19 @@
+package poli.mestrado.document.management;
+
+
+public class DocumentHelper {
+	private IDocument document  = new TxtDocument();
+	
+	private static DocumentHelper instance = null;
+
+	public static DocumentHelper getInstance(){
+		if(instance == null){
+			instance = new DocumentHelper();
+		}
+		return instance;
+	}
+	private DocumentHelper(){
+
+	}
+
+}

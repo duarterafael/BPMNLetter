@@ -1,0 +1,7 @@
+package poli.mestrado.document.management;
+
+public abstract class IDocument {
+	
+	public abstract void print(String str);
+
+}

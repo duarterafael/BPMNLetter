@@ -1,0 +1,6 @@
+1442194976454	Rename field 'abstractBaseElementList'
+1442195025323	Rename local variable 'abstractBaseElement'
+1442195048268	Rename method 'getAbstractBaseElementList'
+1442324710227	Rename package 'poli.mestrado.parser.bpmn2use.tag.sequenceFlow'
+1442327233599	Rename type 'BaseConnectionElement'
+1442327271474	Rename type 'AbstactBaseTag'

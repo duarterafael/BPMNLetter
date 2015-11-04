@@ -1,0 +1,25 @@
+package poli.mestrado.document.management;
+
+import poli.mestrado.parser.bpmn2use.tag.ProcessDiagram;
+
+
+public class DocumentHelper {
+	private IDocument document  = new TxtDocument();
+	
+	private static DocumentHelper instance = null;
+
+	public static DocumentHelper getInstance(){
+		if(instance == null){
+			instance = new DocumentHelper();
+		}
+		return instance;
+	}
+	private DocumentHelper(){
+
+	}
+	
+	public void geneareDocument(ProcessDiagram processDiagram){
+		
+	}
+
+}

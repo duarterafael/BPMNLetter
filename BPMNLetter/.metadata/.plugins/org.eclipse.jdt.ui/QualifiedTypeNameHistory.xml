@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.w3c.dom.views.AbstractView"/>
+<fullyQualifiedTypeName name="ufpe.mestrado.bizagi.parser.tags.AbstractBaseElement"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.lang.Boolean"/>
+<fullyQualifiedTypeName name="poli.mestrado.parser.bpmn2use.tag.SubProcessTag"/>
+<fullyQualifiedTypeName name="poli.mestrado.parser.bpmn2use.tag.ProcessTag"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="poli.mestrado.parser.bpmn2use.tag.Swimlanes.ParticipantTag"/>
+<fullyQualifiedTypeName name="poli.mestrado.parser.bpmn2use.tag.Swimlanes.LaneTag"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="poli.mestrado.parser.bpmn2use.tag.connectioElement.BaseConnectionElement"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="poli.mestrado.parser.bpmn2use.tag.connectioElement.AbstractConnectionElement"/>
+<fullyQualifiedTypeName name="poli.mestrado.parser.bpmn2use.tag.AbstractBaseElement"/>
+<fullyQualifiedTypeName name="poli.mestrado.parser.bpmn2use.tag.ProcessDiagram"/>
+<fullyQualifiedTypeName name="poli.mestrado.parser.bpmn2use.tag.connectioElement.MessageFlowTag"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+</qualifiedTypeNameHistroy>
