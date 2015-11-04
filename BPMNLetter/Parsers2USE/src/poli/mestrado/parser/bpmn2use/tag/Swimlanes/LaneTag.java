@@ -30,6 +30,15 @@ public class LaneTag extends AbstractBaseElement{
 		this.flowElementList.add(flowElement);
 	}
 	
+	public boolean hasFlowWElement(String id){
+		for (AbstractBaseElement abstractBaseElement : flowElementList) {
+			if(abstractBaseElement.getId().equalsIgnoreCase(id)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		String str = super.toString();

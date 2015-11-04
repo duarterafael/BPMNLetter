@@ -404,38 +404,39 @@ public class ModelActions extends AbstractAction {
 				System.out.println("\n--------------------------------resultado do parser------------------------------");
 				System.out.println(processDiagram.toString());
 				
-				DocumentHelper.getInstance().geneareDocument(processDiagram);
+//				DocumentHelper.getInstance().geneareDocument(processDiagram);
 
-//				Graph graph1 = GraphHelper.getInstance().generateGraph(process);
-////				System.out.println("\n______________________________Gerando o grafo__________________________________________________________");
-////				System.out.println(graph1.toString());
-//
-//
-//				List<List<Vertice>>  pahts = GraphHelper.getInstance().generatePaths();
-////				System.out.println("\n--------------------------------Camhinhos gerados--------------------------------------------------------");
-//				int i = 1;
-//				for (List<Vertice> list : pahts) {
-////					System.out.println("\n-----------------------------Path"+i+"-------------------------------\n");
-//					for (Vertice vertice : list) {
-////						if(vertice.getVeriticeElement() instanceof AbstractTaskElement)
-////							System.out.print(vertice.getVeriticeElement().getName()+"("+vertice.getVeriticeElement().getId()+") > ");
-////						System.out.print(vertice.getVeriticeElement().getName().replace("\n", " ")+" > ");
-////						else{
-////							System.out.print(vertice.getVeriticeElement().getName()+"("+vertice.getVeriticeElement().getId()+") > ");
-////						}
-////						System.out.print(vertice.getVeriticeElement().getName()+"("+vertice.getVeriticeElement().getId()+")"+"->");
-//					}
-//					i++;
-//				}
+				Graph graph1 = GraphHelper.getInstance().generateGraph(processDiagram);
+				System.out.println("\n______________________________Gerando o grafo__________________________________________________________");
+				System.out.println(graph1.toString());
+
+
+				List<List<Vertice>>  pahts = GraphHelper.getInstance().generatePaths();
+				System.out.println("\n--------------------------------Camhinhos gerados--------------------------------------------------------");
+				int i = 1;
+				for (List<Vertice> list : pahts) {
+					System.out.println("\n-----------------------------Path"+i+"-------------------------------\n");
+					for (Vertice vertice : list) {
+//						if(vertice.getVeriticeElement() instanceof AbstractTaskElement){
+//							System.out.print(vertice.getVeriticeElement().getName()+"("+vertice.getVeriticeElement().getId()+") > ");
+//							System.out.print(vertice.getVeriticeElement().getName().replace("\n", " ")+" > ");
+//						}
+//						else{
+//							System.out.print(vertice.getVeriticeElement().getName()+"("+vertice.getVeriticeElement().getId()+") > ");
+//						}
+						System.out.print(vertice.getVeriticeElement().getName()+"("+vertice.getVeriticeElement().getId()+")"+"->");
+					}
+					i++;
+				}
+				
+//				String path1 = UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().substring(0, UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().lastIndexOf(File.separator)+1)+"bpmnPathsModel.serializabe";
+//			        GenereteSerializable.saveModel(path1, pahts);
 //				
-////				String path1 = UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().substring(0, UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().lastIndexOf(File.separator)+1)+"bpmnPathsModel.serializabe";
-////			        GenereteSerializable.saveModel(path1, pahts);
-////				
-////				if(poli.mestrado.parser.util.Constants.onlyMainInAsslScript){
-////					GenerateAsslScriptsManager.getInstance().generateAsslScriptOnlyMain(pahts);
-////				}else{
-////					GenerateAsslScriptsManager.getInstance().generateAsslScriptsManiAndMethod(pahts);
-////				}
+//				if(poli.mestrado.parser.util.Constants.onlyMainInAsslScript){
+//					GenerateAsslScriptsManager.getInstance().generateAsslScriptOnlyMain(pahts);
+//				}else{
+//					GenerateAsslScriptsManager.getInstance().generateAsslScriptsManiAndMethod(pahts);
+//				}
 				//------------------------------------ATE aqui Comente daqui
 			} catch (Exception ex) {
 				ex.printStackTrace();

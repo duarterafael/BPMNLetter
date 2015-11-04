@@ -5,7 +5,9 @@ import java.util.List;
 
 import poli.mestrado.parser.bpmn2use.graph.Edge.EdgeState;
 import poli.mestrado.parser.bpmn2use.tag.AbstractBaseElement;
+import poli.mestrado.parser.bpmn2use.tag.ProcessDiagram;
 import poli.mestrado.parser.bpmn2use.tag.ProcessTag;
+import poli.mestrado.parser.bpmn2use.tag.Swimlanes.ParticipantTag;
 import poli.mestrado.parser.bpmn2use.tag.connectioElement.SequenceFlowTag;
 import poli.mestrado.parser.bpmn2use.tag.event.StartEvent;
 import poli.mestrado.parser.bpmn2use.tag.gateway.AbstractGatewayElement;
@@ -33,21 +35,43 @@ public class GraphHelper {
 	private GraphHelper(){
 
 	}
+	
 
-
-	public Graph generateGraph(ProcessTag bpmnModel){
-
+	public Graph generateGraph(ProcessDiagram processDiagram){
+		if(processDiagram.getSingleProcess() != null){
+			return generateGraphSigleProcess(processDiagram.getSingleProcess());
+		}
+		
 		List<Vertice> verticesList = new LinkedList<Vertice>();
 		List<Edge>  edgeList =  new LinkedList<Edge>();
 
-		edgeList =  new LinkedList<Edge>();
+
+		for (ParticipantTag participantTag : processDiagram.getParticipantList()) {
+			for (AbstractBaseElement bpmnElement : participantTag.getProcessRef().getFlowElementList()) {
+				verticesList.add(new Vertice(bpmnElement));
+			}
+
+			for (SequenceFlowTag sequenceFlowTag : participantTag.getProcessRef().getSequenceFlowList()) {
+				edgeList.add(new Edge(getVeticeById(sequenceFlowTag.getSourceRef().getId(), verticesList), getVeticeById(sequenceFlowTag.getTargetRef().getId(), verticesList), sequenceFlowTag.getConditionExpression()));
+			}
+		}
+		
+		
+		graph = new Graph(verticesList, edgeList);
+		return graph;
+	}
+	
+	private Graph generateGraphSigleProcess(ProcessTag process){
+		List<Vertice> verticesList = new LinkedList<Vertice>();
+		List<Edge>  edgeList =  new LinkedList<Edge>();
 
 
-		for (AbstractBaseElement bpmnElement : bpmnModel.getFlowElementList()) {
+
+		for (AbstractBaseElement bpmnElement : process.getFlowElementList()) {
 			verticesList.add(new Vertice(bpmnElement));
 		}
 
-		for (SequenceFlowTag sequenceFlowTag : bpmnModel.getSequenceFlowList()) {
+		for (SequenceFlowTag sequenceFlowTag : process.getSequenceFlowList()) {
 			edgeList.add(new Edge(getVeticeById(sequenceFlowTag.getSourceRef().getId(), verticesList), getVeticeById(sequenceFlowTag.getTargetRef().getId(), verticesList), sequenceFlowTag.getConditionExpression()));
 		}
 
