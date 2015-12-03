@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import poli.mestrado.parser.uml2use.UmlFileManager;
-import poli.mestrado.parser.util.Constants;
+import poli.mestrado.parser.util.MyConstants;
 
 public class UseAsslFileHelper {
 	private File dir;
@@ -18,7 +18,7 @@ public class UseAsslFileHelper {
 	private static int pathCount = 1;
 
 	private UseAsslFileHelper(){
-		String path = BpmnFileManager.getInstance().getExportFile().getAbsolutePath().substring(0, BpmnFileManager.getInstance().getExportFile().getAbsolutePath().lastIndexOf(File.separator))+File.separator+Constants.ASSL_SCRIPT_FOLDER;
+		String path = BpmnFileManager.getInstance().getExportFile().getAbsolutePath().substring(0, BpmnFileManager.getInstance().getExportFile().getAbsolutePath().lastIndexOf(File.separator))+File.separator+MyConstants.ASSL_SCRIPT_FOLDER;
 		dir = new File(path);
 		if(!dir.exists()){
 			dir.mkdirs();
@@ -27,7 +27,7 @@ public class UseAsslFileHelper {
 	}
 
 	public static void deleteFiles() {
-		String path = BpmnFileManager.getInstance().getExportFile().getAbsolutePath().substring(0, BpmnFileManager.getInstance().getExportFile().getAbsolutePath().lastIndexOf(File.separator))+File.separator+Constants.ASSL_SCRIPT_FOLDER;
+		String path = BpmnFileManager.getInstance().getExportFile().getAbsolutePath().substring(0, BpmnFileManager.getInstance().getExportFile().getAbsolutePath().lastIndexOf(File.separator))+File.separator+MyConstants.ASSL_SCRIPT_FOLDER;
 		File auxDir = new File(path);
 		if(auxDir.exists() && auxDir.isDirectory()){
 			for (File oldAsslFile : auxDir.listFiles()) {
@@ -84,7 +84,7 @@ public class UseAsslFileHelper {
 	
 	public String[] getAsslNames(){
 		String[] nameFiles = null;
-		String path = BpmnFileManager.getInstance().getExportFile().getAbsolutePath().substring(0, BpmnFileManager.getInstance().getExportFile().getAbsolutePath().lastIndexOf(File.separator))+File.separator+Constants.ASSL_SCRIPT_FOLDER;
+		String path = BpmnFileManager.getInstance().getExportFile().getAbsolutePath().substring(0, BpmnFileManager.getInstance().getExportFile().getAbsolutePath().lastIndexOf(File.separator))+File.separator+MyConstants.ASSL_SCRIPT_FOLDER;
 		dir = new File(path);
 		if(dir.exists()){
 			nameFiles = new String[dir.listFiles().length];

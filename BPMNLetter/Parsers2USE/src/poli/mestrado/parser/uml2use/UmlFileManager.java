@@ -15,7 +15,7 @@ package poli.mestrado.parser.uml2use;
 
 import java.io.File;
 
-import poli.mestrado.parser.util.Constants;
+import poli.mestrado.parser.util.MyConstants;
 
 public class UmlFileManager {
     
@@ -23,11 +23,11 @@ public class UmlFileManager {
     private static UmlFileManager instance = null;
     
     private UmlFileManager(){
-        File pholder = new File(Constants.EXPORT_FOLDER);
+        File pholder = new File(MyConstants.EXPORT_FOLDER);
         if(!pholder.exists()){
             pholder.mkdirs();
         }
-        xmiFile = new File(Constants.EXPORT_FOLDER+"/"+Constants.CLASS_DIAGRAM_XMI_FILE_NAME);
+        xmiFile = new File(MyConstants.EXPORT_FOLDER+"/"+MyConstants.CLASS_DIAGRAM_XMI_FILE_NAME);
     }
     
     public static UmlFileManager getInstance(){

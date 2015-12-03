@@ -29,6 +29,7 @@ import org.yaoqiang.bpmn.model.elements.activities.ResourceRole;
 import org.yaoqiang.bpmn.model.elements.activities.ResourceRoles;
 import org.yaoqiang.bpmn.model.elements.core.common.PartnerEntity;
 import org.yaoqiang.bpmn.model.elements.core.common.PartnerRole;
+import org.yaoqiang.bpmn.model.elements.core.foundation.Documentation;
 import org.yaoqiang.bpmn.model.elements.data.Assignment;
 import org.yaoqiang.bpmn.model.elements.data.DataAssociation;
 import org.yaoqiang.bpmn.model.elements.data.ItemAwareElement;
@@ -123,7 +124,7 @@ public class BaseDialog extends JDialog {
 			title = mxResources.get("namespace");
 		} else if (el instanceof ResourceRoles) {
 //			title = mxResources.get("resourceAssignment");
-			title = "Pre/Post condition";
+			title = "Letter fragment";
 		} else if (el instanceof ResourceRole) {
 //			title = mxResources.get("resource");
 			title = "New Pre/Post condition";
@@ -131,7 +132,10 @@ public class BaseDialog extends JDialog {
 			title = mxResources.get("resourceParameterBinding");
 		} else if (el instanceof CallActivity) {
 			title = mxResources.get("callActivityOrProcess");
-		} else {
+		} else if (type.equalsIgnoreCase("documentation") || el instanceof Documentation){
+			title = "Letter fragment";
+		}
+		else {
 			if (el instanceof EventDefinition || el instanceof DataAssociation || el instanceof Assignment || el instanceof PartnerEntity
 					|| el instanceof PartnerRole) {
 				title = mxResources.get(((XMLElement) el).toName());

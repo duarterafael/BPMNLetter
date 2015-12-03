@@ -2,7 +2,7 @@ package poli.mestrado.parser.bpmn2use.graph;
 
 import java.io.Serializable;
 
-import poli.mestrado.parser.util.Constants;
+import poli.mestrado.parser.util.MyConstants;
 
 @SuppressWarnings("serial")
 public class Edge implements Serializable{
@@ -53,7 +53,7 @@ public class Edge implements Serializable{
 	}
 	
 	public String getUseShellComand(){
-		if(Constants.VERBOSE_CONTION){
+		if(MyConstants.VERBOSE_CONTION){
 			return "??"+this.conditionExpression;
 		}else{
 			return "?"+this.conditionExpression;

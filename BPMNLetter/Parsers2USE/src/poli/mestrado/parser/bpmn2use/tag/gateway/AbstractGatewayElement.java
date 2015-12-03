@@ -1,7 +1,10 @@
 package poli.mestrado.parser.bpmn2use.tag.gateway;
 
+import java.util.List;
+
 import poli.mestrado.parser.bpmn2use.tag.AbstractBaseElement;
-import poli.mestrado.parser.util.Constants;
+import poli.mestrado.parser.bpmn2use.tag.Documentation;
+import poli.mestrado.parser.util.MyConstants;
 
 public abstract class AbstractGatewayElement extends AbstractBaseElement {
 	
@@ -9,9 +12,9 @@ public abstract class AbstractGatewayElement extends AbstractBaseElement {
 	
 	private String  gatewayDirection;
 	
-	public AbstractGatewayElement(String id, String name,
+	public AbstractGatewayElement(String id, String name, List<Documentation> documentationList, 
 			String gatewayDirection) {
-		super(id, name);
+		super(id, name, documentationList);
 		this.gatewayDirection = gatewayDirection;
 	}
 
@@ -23,11 +26,11 @@ public abstract class AbstractGatewayElement extends AbstractBaseElement {
 	
 	public int getKindGateway(){
 		if(this.gatewayDirection.equalsIgnoreCase("Diverging")){
-			return Constants.GATEWAY_FORK;
+			return MyConstants.GATEWAY_FORK;
 		}else if(this.gatewayDirection.equalsIgnoreCase("Converging")){
-			return Constants.GATEWAY_JOIN;
+			return MyConstants.GATEWAY_JOIN;
 		}else{
-			return Constants.GATEWAY_UNKNOWN;
+			return MyConstants.GATEWAY_UNKNOWN;
 		}
 	}
 

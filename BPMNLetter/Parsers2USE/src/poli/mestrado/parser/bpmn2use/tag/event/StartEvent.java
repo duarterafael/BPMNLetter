@@ -1,6 +1,9 @@
 package poli.mestrado.parser.bpmn2use.tag.event;
 
+import java.util.List;
+
 import poli.mestrado.parser.bpmn2use.tag.AbstractBaseElement;
+import poli.mestrado.parser.bpmn2use.tag.Documentation;
 
 public class StartEvent extends AbstractBaseElement {
 	
@@ -11,9 +14,9 @@ public class StartEvent extends AbstractBaseElement {
 	private Boolean isInterrupting;
 	private Boolean parallelMultiple;
 	
-	public StartEvent(String id, String name, Boolean isInterrupting,
+	public StartEvent(String id, String name, List<Documentation> documentationList, Boolean isInterrupting,
 			Boolean parallelMultiple) {
-		super(id, name);
+		super(id, name, documentationList);
 		this.isInterrupting = isInterrupting;
 		this.parallelMultiple = parallelMultiple;
 	}

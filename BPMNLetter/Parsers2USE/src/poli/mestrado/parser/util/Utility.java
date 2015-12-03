@@ -24,15 +24,15 @@ public class Utility {
 	public static String convertUserCMD2ShellUseCMD(String userCMD){
 //			case Constants.USER_CMD_RANDOM_SET:
 //				return getShellUSECMDRandonSet(userCMD);
-			if(userCMD.contains(Constants.USER_CMD_CREATE)){
+			if(userCMD.contains(MyConstants.USER_CMD_CREATE)){
 				return getShellUSECMDCreate(userCMD);
-			}else if(userCMD.contains(Constants.USER_CMD_DELETE)){
+			}else if(userCMD.contains(MyConstants.USER_CMD_DELETE)){
 				return getShellUSECMDDestroy(userCMD);
-			}else if(userCMD.contains(Constants.USER_CMD_SET)){
+			}else if(userCMD.contains(MyConstants.USER_CMD_SET)){
 				return getShellUSECMDSET(userCMD);
-			}else if(userCMD.contains(Constants.USER_CMD_ASSOC)){
+			}else if(userCMD.contains(MyConstants.USER_CMD_ASSOC)){
 				return getShellUSECMDAssoc(userCMD);
-			}else if(userCMD.contains(Constants.USER_CMD_DESASSOC)){
+			}else if(userCMD.contains(MyConstants.USER_CMD_DESASSOC)){
 				return getShellUSECMDDesassoc(userCMD);
 			}
 			return null;
@@ -84,7 +84,7 @@ public class Utility {
 		String returnedCMD = "";
 		String path =  	UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath()
 				.substring(0, UmlFileManager.getInstance().getExportXmiFile().
-				getAbsolutePath().lastIndexOf(File.separator)+1)+Constants.CLASS_DIAGRAM_SERIALIZABEL_FILE_NAME;
+				getAbsolutePath().lastIndexOf(File.separator)+1)+MyConstants.CLASS_DIAGRAM_SERIALIZABEL_FILE_NAME;
 
 		ModelTag model = null;
 		try {

@@ -63,6 +63,7 @@ public class PopupMenu extends JPopupMenu {
 
 	protected void populateEventMenu() {
 		Event event = (Event) cell.getValue();
+		
 		if (model.isStartEvent(cell)) {
 			JMenu eventmenu = (JMenu) add(new JMenu(mxResources.get("eventType")));
 			Object parent = graph.getModel().getParent(cell);
@@ -369,7 +370,7 @@ public class PopupMenu extends JPopupMenu {
 		} else {
 			add(editor.bind(mxResources.get("dataInputOutputs"), ModelActions.getAction(ModelActions.DATA_INOUT)));
 		}
-		add(editor.bind("Pre/Post condition", ModelActions.getAction(ModelActions.RESOURCE_ASSIGNMENT)));
+		
 	}
 
 	protected void populateChoreographyMenu() {
@@ -731,7 +732,7 @@ public class PopupMenu extends JPopupMenu {
 	}
 
 	protected void populateDocumentationMenu() {
-		add(editor.bind(mxResources.get("documentation"), ModelActions.getAction(ModelActions.DOCUMENTATION)));
+		add(editor.bind(mxResources.get("Letter fragment"), ModelActions.getAction(ModelActions.DOCUMENTATION)));
 	}
 
 	protected void populateWhitespaceMenu(MouseEvent e) {

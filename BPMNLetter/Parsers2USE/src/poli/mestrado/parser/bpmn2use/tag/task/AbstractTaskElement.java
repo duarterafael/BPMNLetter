@@ -1,16 +1,16 @@
 package poli.mestrado.parser.bpmn2use.tag.task;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import poli.mestrado.parser.bpmn2use.TagTransformerAsslCommand;
 import poli.mestrado.parser.bpmn2use.tag.AbstractBaseElement;
 import poli.mestrado.parser.bpmn2use.tag.AbstractCondition;
+import poli.mestrado.parser.bpmn2use.tag.Documentation;
 import poli.mestrado.parser.bpmn2use.tag.PosCondition;
 import poli.mestrado.parser.bpmn2use.tag.PreCondition;
 import poli.mestrado.parser.bpmn2use.tag.dataObject.DataObject;
-import poli.mestrado.parser.util.Constants;
+import poli.mestrado.parser.util.MyConstants;
 
 public abstract class AbstractTaskElement extends AbstractBaseElement {
 
@@ -27,12 +27,12 @@ public abstract class AbstractTaskElement extends AbstractBaseElement {
 
 
 
-	public AbstractTaskElement(String id, String name,
+	public AbstractTaskElement(String id, String name, List<Documentation> documentationList, 
 			Integer completionQuantity, Boolean isForCompensation,
 			Integer startQuantity,
 			List<AbstractCondition> prePostConditionList,
 			List<DataObject> dataInputList, List<DataObject> dataOutList) {
-		super(id, name);
+		super(id, name, documentationList);
 		this.completionQuantity = completionQuantity;
 		this.isForCompensation = isForCompensation;
 		this.startQuantity = startQuantity;
@@ -91,14 +91,14 @@ public abstract class AbstractTaskElement extends AbstractBaseElement {
 		
 		for (int i = 0; i < prePostConditionList.size(); i++) {
 			if(prePostConditionList.get(i) instanceof PreCondition){
-				if(Constants.asslScriptWhithLog){
+				if(MyConstants.asslScriptWhithLog){
 					preConditonListStr += "\n\t-------Pre condition name: "+prePostConditionList.get(i).getName()+"-------------\n";
 				}
 				for (String asslComand : TagTransformerAsslCommand.conditionExpression2AsslCommand(prePostConditionList.get(i).getConditionExpression())) {
 					preConditonListStr += "\t\t"+asslComand.replace("\n", "").trim()+"\n";
 				}
 			}else if(prePostConditionList.get(i) instanceof PosCondition){
-				if(Constants.asslScriptWhithLog){
+				if(MyConstants.asslScriptWhithLog){
 					postConditionListStr += "\n\t-------Pos condition name: "+prePostConditionList.get(i).getName()+"-------------\n";
 				}
 				for (String asslComand : TagTransformerAsslCommand.conditionExpression2AsslCommand(prePostConditionList.get(i).getConditionExpression())) {
@@ -106,7 +106,7 @@ public abstract class AbstractTaskElement extends AbstractBaseElement {
 				}
 			}
 		}
-		if(Constants.asslScriptWhithLog){
+		if(MyConstants.asslScriptWhithLog){
 			if(!preConditonListStr.equals("")){
 				preConditonListStr = "\n\n---------------BEGIN Pre condtion List---------------"+preConditonListStr+"\n---------------END Pre condtion List---------------\n";
 			}else{
@@ -122,13 +122,13 @@ public abstract class AbstractTaskElement extends AbstractBaseElement {
 		
 
 		String str = "";
-		if(Constants.asslScriptWhithLog){
+		if(MyConstants.asslScriptWhithLog){
 			str += "\n------BEGIN TASK id: "+super.getId()+" Name: "+super.getName()+" ---------";
 		}
 		str+=preConditonListStr;
 		str+=postConditionListStr;
 
-		if(Constants.asslScriptWhithLog){
+		if(MyConstants.asslScriptWhithLog){
 			str+= "\n------------END TASK id: "+super.getId()+" Name: "+super.getName()+" ---------";
 		}
 		return str;

@@ -1,7 +1,7 @@
 package poli.mestrado.parser.util;
 
 
-public interface Constants {
+public interface MyConstants {
 	
 	//CLASS DIAGRAM FILES
 	public static final String CLASS_DIAGRAM_XMI_FILE_NAME = "conceptModel.xmi";

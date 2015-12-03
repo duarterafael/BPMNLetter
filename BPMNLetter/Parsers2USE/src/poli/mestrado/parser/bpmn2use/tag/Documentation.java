@@ -7,13 +7,13 @@ public class Documentation implements Serializable {
 	
 	
 	private String id;
-	private String contents;
+	private String content;
 	
-	public Documentation(String id, String contents) {
+	public Documentation(String id, String content) {
 		super();
 		this.id = id;
-		this.contents = contents; 
-//		(String) contents.subSequence(contents.indexOf("<![CDATA[")+"<![CDATA[".length(), contents.indexOf("]]>"));;
+		this.content = content;
+//				(String) contents.subSequence(contents.indexOf("<![CDATA[")+"<![CDATA[".length(), contents.indexOf("]]>"));;
 		
 	}
 
@@ -22,8 +22,8 @@ public class Documentation implements Serializable {
 	}
 
 
-	public String getContents() {
-		return contents;
+	public String getContent() {
+		return content;
 	}
 
 	

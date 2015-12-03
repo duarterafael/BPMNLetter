@@ -1,6 +1,9 @@
 package poli.mestrado.parser.bpmn2use.tag.Swimlanes;
 
+import java.util.List;
+
 import poli.mestrado.parser.bpmn2use.tag.AbstractBaseElement;
+import poli.mestrado.parser.bpmn2use.tag.Documentation;
 import poli.mestrado.parser.bpmn2use.tag.ProcessTag;
 
 public class ParticipantTag extends AbstractBaseElement{
@@ -11,8 +14,8 @@ public class ParticipantTag extends AbstractBaseElement{
 	
 	private ProcessTag processRef = null;
 
-	public ParticipantTag(String id, String name, ProcessTag processRef) {
-		super(id, name);
+	public ParticipantTag(String id, String name, List<Documentation> documentationList, ProcessTag processRef) {
+		super(id, name, documentationList);
 		this.processRef = processRef;
 	}
 

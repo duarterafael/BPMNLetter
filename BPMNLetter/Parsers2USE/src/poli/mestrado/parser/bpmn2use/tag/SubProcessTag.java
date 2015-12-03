@@ -1,5 +1,7 @@
 package poli.mestrado.parser.bpmn2use.tag;
 
+import java.util.List;
+
 public class SubProcessTag extends AbstractBaseElement{
 
 	public static final String 	TAG_NAME = "subProcess";
@@ -13,10 +15,10 @@ public class SubProcessTag extends AbstractBaseElement{
 	private Integer startQuantity;
 	private Boolean triggeredByEvent;
 	
-	public SubProcessTag(String id, String name, Integer completionQuantity,
+	public SubProcessTag(String id, String name, List<Documentation> documentationList, Integer completionQuantity,
 			Boolean isForCompensation, Integer startQuantity,
 			Boolean triggeredByEvent) {
-		super(id, name);
+		super(id, name, documentationList);
 		this.completionQuantity = completionQuantity;
 		this.isForCompensation = isForCompensation;
 		this.startQuantity = startQuantity;

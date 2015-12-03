@@ -1,6 +1,9 @@
 package poli.mestrado.parser.bpmn2use.tag.event;
 
+import java.util.List;
+
 import poli.mestrado.parser.bpmn2use.tag.AbstractBaseElement;
+import poli.mestrado.parser.bpmn2use.tag.Documentation;
 
 public class IntermediateCatchEvent extends AbstractBaseElement {
 	
@@ -9,8 +12,8 @@ public class IntermediateCatchEvent extends AbstractBaseElement {
 	
 	private Boolean parallelMultiple;
 	
-	public IntermediateCatchEvent(String id, String name, Boolean parallelMultiple) {
-		super(id, name);
+	public IntermediateCatchEvent(String id, String name, List<Documentation> documentationList, Boolean parallelMultiple) {
+		super(id, name, documentationList);
 		this.parallelMultiple = parallelMultiple;
 	}
 

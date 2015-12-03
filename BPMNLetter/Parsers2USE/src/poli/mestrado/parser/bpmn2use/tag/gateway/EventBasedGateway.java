@@ -1,5 +1,9 @@
 package poli.mestrado.parser.bpmn2use.tag.gateway;
 
+import java.util.List;
+
+import poli.mestrado.parser.bpmn2use.tag.Documentation;
+
 public class EventBasedGateway extends AbstractGatewayElement {
 	
 	public static final String TAG_NAME = "eventBasedGateway";
@@ -10,9 +14,9 @@ public class EventBasedGateway extends AbstractGatewayElement {
 	private Boolean instantiate;
 	
 	
-	public EventBasedGateway(String id, String name, String gatewayDirection,
+	public EventBasedGateway(String id, String name, List<Documentation> documentationList, String gatewayDirection,
 			EnumEventGatewayType type, Boolean instantiate) {
-		super(id, name, gatewayDirection);
+		super(id, name, documentationList, gatewayDirection);
 		this.type = type;
 		this.instantiate = instantiate;
 	}

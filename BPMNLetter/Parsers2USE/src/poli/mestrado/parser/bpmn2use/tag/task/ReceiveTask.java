@@ -3,17 +3,18 @@ package poli.mestrado.parser.bpmn2use.tag.task;
 import java.util.List;
 
 import poli.mestrado.parser.bpmn2use.tag.AbstractCondition;
+import poli.mestrado.parser.bpmn2use.tag.Documentation;
 import poli.mestrado.parser.bpmn2use.tag.dataObject.DataObject;
 
 public class ReceiveTask extends AbstractTaskElement {
 
 	public static final String TAG_NAME = "receiveTask";
 
-	public ReceiveTask(String id, String name, Integer completionQuantity,
+	public ReceiveTask(String id, String name, List<Documentation> documentationList, Integer completionQuantity,
 			Boolean isForCompensation, Integer startQuantity,
 			List<AbstractCondition> prePostConditionList,
 			List<DataObject> dataInputList, List<DataObject> dataOutList) {
-		super(id, name, completionQuantity, isForCompensation, startQuantity,
+		super(id, name, documentationList, completionQuantity, isForCompensation, startQuantity,
 				prePostConditionList, dataInputList, dataOutList);
 		// TODO Auto-generated constructor stub
 	}

@@ -69,6 +69,19 @@ public class ProcessDiagram implements Serializable{
 		return str;
 	}
 	
+	public ParticipantTag getOwnerProcess(AbstractBaseElement element){
+		for (ParticipantTag participantTag : participantList) {
+			if(participantTag.getProcessRef() != null){
+				for (AbstractBaseElement abstractBaseElement : participantTag.getProcessRef().getFlowElementList()) {
+					if(abstractBaseElement.getId().equalsIgnoreCase(element.getId())){
+						return participantTag;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
 	
 
 }

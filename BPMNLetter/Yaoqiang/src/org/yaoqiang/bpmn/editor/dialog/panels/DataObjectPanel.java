@@ -33,7 +33,7 @@ import poli.mestrado.parser.uml2use.UmlFileManager;
 import poli.mestrado.parser.uml2use.tag.AssociationClassTag;
 import poli.mestrado.parser.uml2use.tag.ClassTag;
 import poli.mestrado.parser.uml2use.tag.ModelTag;
-import poli.mestrado.parser.util.Constants;
+import poli.mestrado.parser.util.MyConstants;
 
 
 /**
@@ -68,7 +68,7 @@ public class DataObjectPanel extends XMLPanel {
 //			MUDAR AQUI
 			String path = 
 //					"E:\\Source codes\\DissertacaoAPP\\MainProject\\"+Constants.EXPORT_FOLDER+"\\"+Constants.CLASS_DIAGRAM_SERIALIZABEL_FILE_NAME;
-			UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().substring(0, UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().lastIndexOf(File.separator)+1)+Constants.CLASS_DIAGRAM_SERIALIZABEL_FILE_NAME;
+			UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().substring(0, UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().lastIndexOf(File.separator)+1)+MyConstants.CLASS_DIAGRAM_SERIALIZABEL_FILE_NAME;
 			
 			ModelTag model = (ModelTag) GenereteSerializable.retryveModel(path);
 			

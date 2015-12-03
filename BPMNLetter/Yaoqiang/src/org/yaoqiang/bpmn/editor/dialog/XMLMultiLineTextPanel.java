@@ -31,7 +31,7 @@ import poli.mestrado.parser.uml2use.tag.ClassTag;
 import poli.mestrado.parser.uml2use.tag.EnumerationLiteralTag;
 import poli.mestrado.parser.uml2use.tag.EnumerationTag;
 import poli.mestrado.parser.uml2use.tag.ModelTag;
-import poli.mestrado.parser.util.Constants;
+import poli.mestrado.parser.util.MyConstants;
 
 import com.mxgraph.util.mxResources;
 
@@ -53,6 +53,7 @@ public class XMLMultiLineTextPanel extends XMLPanel {
 
 	public XMLMultiLineTextPanel(PanelContainer pc, XMLElement owner, String title, String style, int width, int height) {
 		super(pc, owner);
+		
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		if (title != null && title.length() != 0) {
@@ -66,10 +67,12 @@ public class XMLMultiLineTextPanel extends XMLPanel {
 		jta.setEditable(true);
 		jta.setSyntaxEditingStyle(style);
 		jta.setCodeFoldingEnabled(true);
+		jta.setColumns(10);
 		jta.setAntiAliasingEnabled(true);
 		if (owner != null) {
 			jta.setText(owner.toValue());
 		}
+		jta.setText("Aqui terá o template do elemento "+owner.getParent().getParent().toString());
 		jta.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
 				getPanelContainer().panelChanged();
@@ -109,65 +112,65 @@ public class XMLMultiLineTextPanel extends XMLPanel {
 	private CompletionProvider createCompletionProvider() {
 
 
-		// A DefaultCompletionProvider is the simplest concrete implementation
-		// of CompletionProvider. This provider has no understanding of
-		// language semantics. It simply checks the text entered up to the
-		// caret position for a match against known completions. This is all
-		// that is needed in the majority of cases.
+//		// A DefaultCompletionProvider is the simplest concrete implementation
+//		// of CompletionProvider. This provider has no understanding of
+//		// language semantics. It simply checks the text entered up to the
+//		// caret position for a match against known completions. This is all
+//		// that is needed in the majority of cases.
 		DefaultCompletionProvider provider = new DefaultCompletionProvider();
+//		
+//		String path =  	UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath()
+//				.substring(0, UmlFileManager.getInstance().getExportXmiFile().
+//				getAbsolutePath().lastIndexOf(File.separator)+1)+MyConstants.CLASS_DIAGRAM_SERIALIZABEL_FILE_NAME;
+////		System.out.println("===========>"+path);
+//
+//		ModelTag model = null;
+//		try {
+//			model = (ModelTag) GenereteSerializable.retryveModel(path);
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		LinkedList<String> lst = new LinkedList<String>();
+//		if(model != null){
+//			for (ClassTag classTag : model.getClassList()) {
+//					lst.add(classTag.getName());
+//					for(AttributeTag attTag : classTag.getAttributesList()){
+//						lst.add(attTag.getName());
+//					}
+//			}
+//			for (EnumerationTag enumTag : model.getEnumList()) {
+//				lst.add(enumTag.getName());
+//				for (EnumerationLiteralTag literalTag : enumTag.getEnumerationLiteralList()) {
+//					lst.add(literalTag.getName());
+//				}
+//			}
+//			
+//		}
 		
-		String path =  	UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath()
-				.substring(0, UmlFileManager.getInstance().getExportXmiFile().
-				getAbsolutePath().lastIndexOf(File.separator)+1)+Constants.CLASS_DIAGRAM_SERIALIZABEL_FILE_NAME;
-//		System.out.println("===========>"+path);
-
-		ModelTag model = null;
-		try {
-			model = (ModelTag) GenereteSerializable.retryveModel(path);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		LinkedList<String> lst = new LinkedList<String>();
-		if(model != null){
-			for (ClassTag classTag : model.getClassList()) {
-					lst.add(classTag.getName());
-					for(AttributeTag attTag : classTag.getAttributesList()){
-						lst.add(attTag.getName());
-					}
-			}
-			for (EnumerationTag enumTag : model.getEnumList()) {
-				lst.add(enumTag.getName());
-				for (EnumerationLiteralTag literalTag : enumTag.getEnumerationLiteralList()) {
-					lst.add(literalTag.getName());
-				}
-			}
-			
-		}
+//		// Add completions for all Java keywords. A BasicCompletion is just
+//		// a straightforward word completion.
+//		for (String string : lst) {
+//			provider.addCompletion(new BasicCompletion(provider, string));
+//		}
 		
-		// Add completions for all Java keywords. A BasicCompletion is just
-		// a straightforward word completion.
-		for (String string : lst) {
-			provider.addCompletion(new BasicCompletion(provider, string));
-		}
-		
-		 provider.addCompletion(new BasicCompletion(provider, "criar"));
-		 provider.addCompletion(new BasicCompletion(provider, "deletar"));
-		 provider.addCompletion(new BasicCompletion(provider, "atribuir"));
-		 provider.addCompletion(new BasicCompletion(provider, "atribuir_aleatorio"));
-		 provider.addCompletion(new BasicCompletion(provider, "associar"));
-		 provider.addCompletion(new BasicCompletion(provider, "desassociar"));
-
-		 provider.addCompletion(new ShorthandCompletion(provider, "criar", "<idObj>:criar(<classe>);", "<idObj>:criar(<classe>);"));
-		 provider.addCompletion(new ShorthandCompletion(provider, "criar", "<idObj>:criar(<nome_classe>)entre(<idObj>,<idObjj>);", "<idObj>:criar(<nome_classe>)entre(<idObj>,<idObjj>);"));
-		 provider.addCompletion(new ShorthandCompletion(provider, "deletar", "<idObj>:deletar;", "<idObj>:deletar;"));
-		 provider.addCompletion(new ShorthandCompletion(provider, "atribuir", "<idObj>:atribuir(<attibuto>,<valor>);", "<idObj>:atribuir(<attibuto>,<valor>);"));
-		 provider.addCompletion(new ShorthandCompletion(provider, "atribuir_aleatorio", "<idObj>:atribuir_aleatorio(<nome_classe>);",  "<idObj>:atribuir_aleatorio(<nome_classe>);"));
-		 provider.addCompletion(new ShorthandCompletion(provider, "associar", "<idObj>:associar(<idObj>,<idObj>);",  "<idObj>:associar(<idObj>,<idObj>);"));
-		 provider.addCompletion(new ShorthandCompletion(provider, "desassociar", "<idObj>:desassociar(<idObj>,<idObj>);",  "<idObj>:desassociar(<idObj>,<idObj>);"));
+		 provider.addCompletion(new BasicCompletion(provider, "Aqui tera um altocomplete"));
+//		 provider.addCompletion(new BasicCompletion(provider, "deletar"));
+//		 provider.addCompletion(new BasicCompletion(provider, "atribuir"));
+//		 provider.addCompletion(new BasicCompletion(provider, "atribuir_aleatorio"));
+//		 provider.addCompletion(new BasicCompletion(provider, "associar"));
+//		 provider.addCompletion(new BasicCompletion(provider, "desassociar"));
+//
+//		 provider.addCompletion(new ShorthandCompletion(provider, "criar", "<idObj>:criar(<classe>);", "<idObj>:criar(<classe>);"));
+//		 provider.addCompletion(new ShorthandCompletion(provider, "criar", "<idObj>:criar(<nome_classe>)entre(<idObj>,<idObjj>);", "<idObj>:criar(<nome_classe>)entre(<idObj>,<idObjj>);"));
+//		 provider.addCompletion(new ShorthandCompletion(provider, "deletar", "<idObj>:deletar;", "<idObj>:deletar;"));
+//		 provider.addCompletion(new ShorthandCompletion(provider, "atribuir", "<idObj>:atribuir(<attibuto>,<valor>);", "<idObj>:atribuir(<attibuto>,<valor>);"));
+//		 provider.addCompletion(new ShorthandCompletion(provider, "atribuir_aleatorio", "<idObj>:atribuir_aleatorio(<nome_classe>);",  "<idObj>:atribuir_aleatorio(<nome_classe>);"));
+//		 provider.addCompletion(new ShorthandCompletion(provider, "associar", "<idObj>:associar(<idObj>,<idObj>);",  "<idObj>:associar(<idObj>,<idObj>);"));
+//		 provider.addCompletion(new ShorthandCompletion(provider, "desassociar", "<idObj>:desassociar(<idObj>,<idObj>);",  "<idObj>:desassociar(<idObj>,<idObj>);"));
 		 
 		
 

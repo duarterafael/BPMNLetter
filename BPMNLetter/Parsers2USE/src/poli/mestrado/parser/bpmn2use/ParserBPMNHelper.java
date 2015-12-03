@@ -2,6 +2,7 @@ package poli.mestrado.parser.bpmn2use;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.xml.sax.SAXException;
 
 import poli.mestrado.parser.bpmn2use.tag.AbstractBaseElement;
 import poli.mestrado.parser.bpmn2use.tag.AbstractCondition;
+import poli.mestrado.parser.bpmn2use.tag.Documentation;
 import poli.mestrado.parser.bpmn2use.tag.ICommunProcessAttributeTag;
 import poli.mestrado.parser.bpmn2use.tag.PosCondition;
 import poli.mestrado.parser.bpmn2use.tag.PreCondition;
@@ -79,6 +81,8 @@ public class ParserBPMNHelper {
 		}
 		return instance;
 	}
+	
+	
 
 	
 
@@ -140,6 +144,26 @@ public class ParserBPMNHelper {
 		return messageFlow;
 	}
 	
+	public List<Documentation> getDocumentation(Element parentTag){
+		 List<Documentation> documentationList = new ArrayList<Documentation>();
+		 
+		 NodeList elementsByTagName = parentTag.getElementsByTagName(Documentation.TAG_NAME);
+		 for (int i = 0; i < elementsByTagName.getLength(); i++) {
+			 Element documentationTag = (Element) elementsByTagName.item(i);
+			 
+			 documentationList.add(
+					 new Documentation(
+							 documentationTag.getAttribute(
+									 ICommunProcessAttributeTag.ATTRIBUTE_TAG_ID), documentationTag.getFirstChild().getNodeValue()));
+		 }
+		 
+		 if(documentationList.isEmpty()){
+			 return null;
+		 }
+		 
+		 return documentationList;
+	}
+	
 
 	public List<LaneTag> getAllLanes(Element processTag, ProcessTag process){
 		List<LaneTag> laneList = new LinkedList<LaneTag>();
@@ -154,7 +178,9 @@ public class ParserBPMNHelper {
 				String id = laneTag.getAttribute(ICommunProcessAttributeTag.ATTRIBUTE_TAG_ID);
 				String name = laneTag.getAttribute(ICommunProcessAttributeTag.ATTRIBUTE_TAG_NAME);
 				
-				LaneTag lane = new LaneTag(id, name);
+				
+				
+				LaneTag lane = new LaneTag(id, name, getDocumentation(laneTag));
 
 
 				NodeList flowNodeRefList = laneTag.getElementsByTagName(LaneTag.FLOWNODE_REF);
@@ -195,7 +221,7 @@ public class ParserBPMNHelper {
 			}
 		}
 		
-		ParticipantTag ParticipantTag = new ParticipantTag(idParticipant, name, processRef);
+		ParticipantTag ParticipantTag = new ParticipantTag(idParticipant, name, getDocumentation(participantTag), processRef);
 				
 		return ParticipantTag;
 	}
@@ -384,7 +410,7 @@ public class ParserBPMNHelper {
 				Integer startQuantity = new Integer(subProcessTag.getAttribute(SubProcessTag.START_QUANTITY));
 				Boolean triggeredByEvent =  new Boolean(subProcessTag.getAttribute(SubProcessTag.TRIGGERED_BY_EVENT));
 				
-				subprocesstLis.add(new SubProcessTag(id, name, completionQuantity, isForCompensation, startQuantity, triggeredByEvent));
+				subprocesstLis.add(new SubProcessTag(id, name, getDocumentation(subProcessTag), completionQuantity, isForCompensation, startQuantity, triggeredByEvent));
 			}
 		}
 		
@@ -417,7 +443,7 @@ public class ParserBPMNHelper {
 					parallelMultiple =  new Boolean(StrParallelMultiple);
 				}
 
-				specificKindofEventList.add(EventsFactory.buildEvent(tagName, id, name, isInterrupting, parallelMultiple));
+				specificKindofEventList.add(EventsFactory.buildEvent(tagName, id, name, getDocumentation(eventTag), isInterrupting, parallelMultiple));
 			}
 		}
 
@@ -461,22 +487,22 @@ public class ParserBPMNHelper {
 		NodeList abstractTaskTagList = processTag.getElementsByTagName(tagName);
 		if(abstractTaskTagList != null){
 			for (int i = 0; i < abstractTaskTagList.getLength(); i++) {
-				Element TaskTag = (Element) abstractTaskTagList.item(i);
+				Element taskTag = (Element) abstractTaskTagList.item(i);
 
-				String id = TaskTag.getAttribute(ICommunProcessAttributeTag.ATTRIBUTE_TAG_ID);
-				String name = TaskTag.getAttribute(ICommunProcessAttributeTag.ATTRIBUTE_TAG_NAME);
-				Integer completionQuantity = new Integer(TaskTag.getAttribute(AbstractTaskElement.COMPLETIONQUANTITY_ATTRIBUTE));
-				Boolean isForCompensation = new Boolean(TaskTag.getAttribute(AbstractTaskElement.ISFORCOMPENSATION_ATTRIBUTE));
-				Integer startQuantity = new Integer(TaskTag.getAttribute(AbstractTaskElement.STARTQUANTITY_ATTRIBUTE));
+				String id = taskTag.getAttribute(ICommunProcessAttributeTag.ATTRIBUTE_TAG_ID);
+				String name = taskTag.getAttribute(ICommunProcessAttributeTag.ATTRIBUTE_TAG_NAME);
+				Integer completionQuantity = new Integer(taskTag.getAttribute(AbstractTaskElement.COMPLETIONQUANTITY_ATTRIBUTE));
+				Boolean isForCompensation = new Boolean(taskTag.getAttribute(AbstractTaskElement.ISFORCOMPENSATION_ATTRIBUTE));
+				Integer startQuantity = new Integer(taskTag.getAttribute(AbstractTaskElement.STARTQUANTITY_ATTRIBUTE));
 				
-				List<DataObject> dataInputObjects = getDataObjectListAssociationToTask(TaskTag, DataObject.DATAINPUTASSOCIATION_TAG);
-				List<DataObject> dataOutObjects = getDataObjectListAssociationToTask(TaskTag, DataObject.DATAOUTPUTASSOCIATION_TAG);
+				List<DataObject> dataInputObjects = getDataObjectListAssociationToTask(taskTag, DataObject.DATAINPUTASSOCIATION_TAG);
+				List<DataObject> dataOutObjects = getDataObjectListAssociationToTask(taskTag, DataObject.DATAOUTPUTASSOCIATION_TAG);
 				
 
 				//----------------------------get pre post conditon of task------------------------------------------------
 				LinkedList<AbstractCondition> prePostConditionList = new LinkedList<AbstractCondition> ();
 
-				NodeList precontionTagList = TaskTag.getElementsByTagName(PreCondition.TAG_NAME);
+				NodeList precontionTagList = taskTag.getElementsByTagName(PreCondition.TAG_NAME);
 				if(precontionTagList != null){
 					for (int j = 0; j < precontionTagList.getLength(); j++) {
 						Element PrecontionTag = (Element) precontionTagList.item(j);
@@ -493,7 +519,7 @@ public class ParserBPMNHelper {
 				}
 
 
-				NodeList poscontionTagList = TaskTag.getElementsByTagName(PosCondition.TAG_NAME);
+				NodeList poscontionTagList = taskTag.getElementsByTagName(PosCondition.TAG_NAME);
 				if(poscontionTagList != null){
 					for (int j = 0; j < poscontionTagList.getLength(); j++) {
 						Element postcontionTag = (Element) poscontionTagList.item(j);
@@ -509,7 +535,7 @@ public class ParserBPMNHelper {
 					}
 				}
 				//-----------------------------------------------END------------------------------------------------------------------
-				specificKindofTaskList.add(TaskFactory.buildTask(tagName, id, name, completionQuantity, isForCompensation, startQuantity, prePostConditionList, dataInputObjects, dataOutObjects));
+				specificKindofTaskList.add(TaskFactory.buildTask(tagName, id, name, getDocumentation(taskTag), completionQuantity, isForCompensation, startQuantity, prePostConditionList, dataInputObjects, dataOutObjects));
 			}
 
 		}else{
@@ -539,7 +565,7 @@ public class ParserBPMNHelper {
 				EnumEventGatewayType type = EnumEventGatewayType.getValue(gatewayTag.getAttribute(EventBasedGateway.EVENTGATEWAYTYPE_ATTRIBUTE));
 				Boolean instantiate = new Boolean(gatewayTag.getAttribute(EventBasedGateway.INSTANTIATE_ATTRIBUTE));
 
-				specificKindofGatewayList.add(new EventBasedGateway(id, name, gatewayDirection, type, instantiate));
+				specificKindofGatewayList.add(new EventBasedGateway(id, name, getDocumentation(gatewayTag), gatewayDirection, type, instantiate));
 			}
 
 		}else{
@@ -564,7 +590,7 @@ public class ParserBPMNHelper {
 				String name = gatewayTag.getAttribute(ICommunProcessAttributeTag.ATTRIBUTE_TAG_NAME);
 				String gatewayDirection = gatewayTag.getAttribute(AbstractGatewayElement.GATEWAYDIRECTION_ATTRIBUTE);
 
-				specificKindofGatewayList.add(GatewayFactory.buildGateway(tagName, id, name, gatewayDirection));
+				specificKindofGatewayList.add(GatewayFactory.buildGateway(tagName, id, name, getDocumentation(gatewayTag), gatewayDirection));
 			}
 
 		}else{
@@ -598,7 +624,7 @@ public class ParserBPMNHelper {
 					state = ((Element)dataStateTagList.item(0)).getAttribute(ICommunProcessAttributeTag.ATTRIBUTE_TAG_NAME);
 				}
 
-				specificKindofDataObjectList.add(DataObjectFactory.buildDataObject(tagName, id, name, isCollection, state, itemSubjectRef));
+				specificKindofDataObjectList.add(DataObjectFactory.buildDataObject(tagName, id, name, getDocumentation(dataObjectTag), isCollection, state, itemSubjectRef));
 			}
 
 		}else{

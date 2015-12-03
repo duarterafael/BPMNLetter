@@ -16,7 +16,7 @@ package poli.mestrado.parser.bpmn2use;
 import java.io.File;
 
 import poli.mestrado.parser.uml2use.UmlFileManager;
-import poli.mestrado.parser.util.Constants;
+import poli.mestrado.parser.util.MyConstants;
 
 public class BpmnFileManager {
     
@@ -24,11 +24,11 @@ public class BpmnFileManager {
     private static BpmnFileManager instance = null;
     
     private BpmnFileManager(){
-        File pholder = new File(Constants.EXPORT_FOLDER);
+        File pholder = new File(MyConstants.EXPORT_FOLDER);
         if(!pholder.exists()){
             pholder.mkdirs();
         }
-        String path = UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().substring(0, UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().lastIndexOf(File.separator)+1)+Constants.BPMN_FILE_NAME;
+        String path = UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().substring(0, UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().lastIndexOf(File.separator)+1)+MyConstants.BPMN_FILE_NAME;
 		 bpmnFile = new File(path);
     }
     

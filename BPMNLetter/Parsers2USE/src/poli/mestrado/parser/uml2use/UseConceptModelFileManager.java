@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import poli.mestrado.parser.util.Constants;
+import poli.mestrado.parser.util.MyConstants;
 
 public class UseConceptModelFileManager {
 	private File useFile;
@@ -14,7 +14,7 @@ public class UseConceptModelFileManager {
 
 	private UseConceptModelFileManager(){
 		try {
-			useFile = new File(UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().substring(0, UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().lastIndexOf(File.separator)+1)+Constants.CLASS_DIAGRAM_USE_FILE_NAME);
+			useFile = new File(UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().substring(0, UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().lastIndexOf(File.separator)+1)+MyConstants.CLASS_DIAGRAM_USE_FILE_NAME);
 			if(useFile.exists()){
 				useFile.delete();
 			}

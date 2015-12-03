@@ -1,6 +1,9 @@
 package poli.mestrado.parser.bpmn2use.tag.dataObject;
 
+import java.util.List;
+
 import poli.mestrado.parser.bpmn2use.tag.AbstractBaseElement;
+import poli.mestrado.parser.bpmn2use.tag.Documentation;
 
 @SuppressWarnings("serial")
 public  class DataObject extends AbstractBaseElement  {
@@ -19,8 +22,8 @@ public  class DataObject extends AbstractBaseElement  {
 	private Boolean isCollection;
 	private String state;
 	
-	public DataObject(String id, String name, Boolean isCollection,  String state, String itemSubjectRef) {
-		super(id, name);
+	public DataObject(String id, String name, List<Documentation> documentationList, Boolean isCollection,  String state, String itemSubjectRef) {
+		super(id, name, documentationList);
 		this.isCollection = isCollection;
 		this.state =  state;
 		this.itemSubjectRef = itemSubjectRef;

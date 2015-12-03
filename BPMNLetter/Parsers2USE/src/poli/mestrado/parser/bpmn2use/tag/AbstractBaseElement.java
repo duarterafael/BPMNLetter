@@ -1,6 +1,8 @@
 package poli.mestrado.parser.bpmn2use.tag;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SuppressWarnings("serial")
@@ -9,11 +11,15 @@ public abstract class AbstractBaseElement implements Serializable, Comparable <A
 	
 	private String id;
 	private String name;
+	private List<Documentation> documentationList; 
 	
-	
-	public AbstractBaseElement(String id, String name) {
+	public AbstractBaseElement(String id, String name,  List<Documentation> documentations) {
 		this.id = id;
 		this.name = name;
+		if(documentations != null){
+			this.documentationList = new ArrayList<Documentation>();
+			this.documentationList.addAll(documentations);
+		}
 	}
 	
 	public String getId() {
@@ -28,10 +34,20 @@ public abstract class AbstractBaseElement implements Serializable, Comparable <A
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public void setDocumentation(List<Documentation> documentation) {
+		this.documentationList = documentation;
+	}
+
 	@Override
 	public String toString() {
-		return "Type = "+this.getClass().getName().substring(this.getClass().getName().lastIndexOf(".")+1)+" ID = "+id+" NAME = "+name;
+		String strDocumentation = "";
+		if(documentationList != null){
+			for (Documentation documentation2 : documentationList) {
+				strDocumentation+="Documentation ("+documentation2.getId()+") Contente:"+documentation2.getContent();
+			} 
+		}
+		return "Type = "+this.getClass().getName().substring(this.getClass().getName().lastIndexOf(".")+1)+" ID = "+id+" NAME = "+name +" "+strDocumentation;
 	}
 	
 	@Override

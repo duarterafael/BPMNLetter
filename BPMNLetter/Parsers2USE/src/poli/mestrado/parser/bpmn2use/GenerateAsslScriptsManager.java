@@ -12,7 +12,7 @@ import poli.mestrado.parser.bpmn2use.tag.event.StartEvent;
 import poli.mestrado.parser.bpmn2use.tag.gateway.AbstractGatewayElement;
 import poli.mestrado.parser.bpmn2use.tag.gateway.ExclusiveGateway;
 import poli.mestrado.parser.bpmn2use.tag.task.AbstractTaskElement;
-import poli.mestrado.parser.util.Constants;
+import poli.mestrado.parser.util.MyConstants;
 import poli.mestrado.parser.util.Utility;
 
 public class GenerateAsslScriptsManager {
@@ -86,8 +86,8 @@ public class GenerateAsslScriptsManager {
 				
 
 				auxStr += getStrTab(qtdTab)+currentTask.getAsslComan();
-			}else if(vertice.getVeriticeElement() instanceof ExclusiveGateway && ((AbstractGatewayElement) vertice.getVeriticeElement()).getKindGateway() == Constants.GATEWAY_FORK){
-				List<Edge> arestas = GraphHelper.getInstance().getAllEdgeLinkedToVertice(vertice, Constants.SOURCE_VERTICE);
+			}else if(vertice.getVeriticeElement() instanceof ExclusiveGateway && ((AbstractGatewayElement) vertice.getVeriticeElement()).getKindGateway() == MyConstants.GATEWAY_FORK){
+				List<Edge> arestas = GraphHelper.getInstance().getAllEdgeLinkedToVertice(vertice, MyConstants.SOURCE_VERTICE);
 				for (Edge edge : arestas) {
 					if(edge.getTargetVertice().equals(caminho.get(i+1))){
 						auxStr += getStrTab(qtdTab)+edge.getAsslConditionComand();
@@ -95,7 +95,7 @@ public class GenerateAsslScriptsManager {
 						qtdTab++;
 					}
 				}
-			}else if(vertice.getVeriticeElement() instanceof ExclusiveGateway && ((AbstractGatewayElement) vertice.getVeriticeElement()).getKindGateway() == Constants.GATEWAY_JOIN){
+			}else if(vertice.getVeriticeElement() instanceof ExclusiveGateway && ((AbstractGatewayElement) vertice.getVeriticeElement()).getKindGateway() == MyConstants.GATEWAY_JOIN){
 				qtdTab --;
 				auxStr += getStrTab(qtdTab)+"end;";
 			}else if(vertice.getVeriticeElement() instanceof EndEvent){
@@ -135,8 +135,8 @@ public class GenerateAsslScriptsManager {
 				createdataObjectList(currentTask.getDataInputList(), listDataObjets);
 				createdataObjectList(currentTask.getDataOutList(), listDataObjets);
 				auxStr += getStrTab(qtdTab)+currentTask.getAsslCall();
-			}else if(vertice.getVeriticeElement() instanceof ExclusiveGateway && ((AbstractGatewayElement) vertice.getVeriticeElement()).getKindGateway() == Constants.GATEWAY_FORK){
-				List<Edge> arestas = GraphHelper.getInstance().getAllEdgeLinkedToVertice(vertice, Constants.SOURCE_VERTICE);
+			}else if(vertice.getVeriticeElement() instanceof ExclusiveGateway && ((AbstractGatewayElement) vertice.getVeriticeElement()).getKindGateway() == MyConstants.GATEWAY_FORK){
+				List<Edge> arestas = GraphHelper.getInstance().getAllEdgeLinkedToVertice(vertice, MyConstants.SOURCE_VERTICE);
 				for (Edge edge : arestas) {
 					if(edge.getTargetVertice().equals(caminho.get(i+1))){
 						auxStr += getStrTab(qtdTab)+edge.getAsslConditionComand();
@@ -144,7 +144,7 @@ public class GenerateAsslScriptsManager {
 						qtdTab++;
 					}
 				}
-			}else if(vertice.getVeriticeElement() instanceof ExclusiveGateway && ((AbstractGatewayElement) vertice.getVeriticeElement()).getKindGateway() == Constants.GATEWAY_JOIN){
+			}else if(vertice.getVeriticeElement() instanceof ExclusiveGateway && ((AbstractGatewayElement) vertice.getVeriticeElement()).getKindGateway() == MyConstants.GATEWAY_JOIN){
 				qtdTab --;
 				auxStr += getStrTab(qtdTab)+"end;";
 			}else if(vertice.getVeriticeElement() instanceof EndEvent){
