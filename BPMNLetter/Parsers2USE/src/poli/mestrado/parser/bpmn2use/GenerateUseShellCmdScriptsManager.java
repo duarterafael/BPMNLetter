@@ -80,7 +80,7 @@ public class GenerateUseShellCmdScriptsManager {
 			if(vertice.getVeriticeElement() instanceof AbstractTaskElement){
 				AbstractTaskElement currentTask = ((AbstractTaskElement) vertice.getVeriticeElement());
 				createdataObjectList(currentTask.getDataInputList(), listDataObjets);
-				createdataObjectList(currentTask.getDataOutList(), listDataObjets);
+				createdataObjectList(currentTask.getDataOutputList(), listDataObjets);
 				
 				
 
@@ -132,7 +132,7 @@ public class GenerateUseShellCmdScriptsManager {
 			if(vertice.getVeriticeElement() instanceof AbstractTaskElement){
 				AbstractTaskElement currentTask = ((AbstractTaskElement) vertice.getVeriticeElement());
 				createdataObjectList(currentTask.getDataInputList(), listDataObjets);
-				createdataObjectList(currentTask.getDataOutList(), listDataObjets);
+				createdataObjectList(currentTask.getDataOutputList(), listDataObjets);
 				auxStr += getStrTab(qtdTab)+currentTask.getAsslCall();
 			}else if(vertice.getVeriticeElement() instanceof ExclusiveGateway && ((AbstractGatewayElement) vertice.getVeriticeElement()).getKindGateway() == MyConstants.GATEWAY_FORK){
 				List<Edge> arestas = GraphHelper.getInstance().getAllEdgeLinkedToVertice(vertice, MyConstants.SOURCE_VERTICE);

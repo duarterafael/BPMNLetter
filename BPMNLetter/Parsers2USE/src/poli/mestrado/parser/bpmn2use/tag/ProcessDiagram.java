@@ -2,9 +2,14 @@ package poli.mestrado.parser.bpmn2use.tag;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
+import poli.mestrado.parser.bpmn2use.graph.Edge;
+import poli.mestrado.parser.bpmn2use.graph.Vertice;
+import poli.mestrado.parser.bpmn2use.tag.Swimlanes.LaneTag;
 import poli.mestrado.parser.bpmn2use.tag.Swimlanes.ParticipantTag;
 import poli.mestrado.parser.bpmn2use.tag.connectioElement.MessageFlowTag;
+import poli.mestrado.parser.util.MyConstants;
 
 public class ProcessDiagram implements Serializable{
 	
@@ -69,6 +74,24 @@ public class ProcessDiagram implements Serializable{
 		return str;
 	}
 	
+	public LaneTag getOwnerLane(AbstractBaseElement element){
+		for (ParticipantTag participantTag : participantList) {
+			if(participantTag.getProcessRef() != null && participantTag.getProcessRef().getLaneList() != null){
+				for (LaneTag lane : participantTag.getProcessRef().getLaneList()) {
+					if(lane.getFlowElementList() != null){
+						for (AbstractBaseElement flowElementTag : lane.getFlowElementList()) {
+							if(flowElementTag.getId().equalsIgnoreCase(element.getId())){
+								return lane;
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		return null;
+	}
+	
 	public ParticipantTag getOwnerProcess(AbstractBaseElement element){
 		for (ParticipantTag participantTag : participantList) {
 			if(participantTag.getProcessRef() != null){
@@ -81,6 +104,30 @@ public class ProcessDiagram implements Serializable{
 		}
 		return null;
 	}
+	
+	/**
+	 * @param v
+	 * @param kindOfVertice  0-souce vertice / 1-targe Vertice
+	 * @return
+	 */
+	public List<MessageFlowTag> getAllMessageFlowToVertice(AbstractBaseElement v, int kindOfVertice){
+		List<MessageFlowTag> allEdgeLinkedToVerticeList =  new LinkedList<MessageFlowTag>();
+
+		for (MessageFlowTag messageFlowTag : messageFlowList) {
+
+			if(kindOfVertice == MyConstants.SOURCE_VERTICE){
+				if(messageFlowTag.getSourceRef().getId().equals(v.getId())){
+					allEdgeLinkedToVerticeList.add(messageFlowTag);
+				}
+			}else if(kindOfVertice == MyConstants.TARGET_VERTICE){
+				if(messageFlowTag.getTargetRef().getId().equals(v.getId())){
+					allEdgeLinkedToVerticeList.add(messageFlowTag);
+				}
+			}
+		}
+		return allEdgeLinkedToVerticeList;
+	}
+
 	
 	
 

@@ -29,7 +29,8 @@ public abstract class AbstractBaseElement implements Serializable, Comparable <A
 		this.id = id;
 	}
 	public String getName() {
-		return name;
+		String str = name.replace("\n", "");
+		return str;
 	}
 	public void setName(String name) {
 		this.name = name;

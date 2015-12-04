@@ -9,5 +9,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/AutoCompleteComponent"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Parsers2USE"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/DocumentGenerator"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -23,7 +23,7 @@ public abstract class AbstractTaskElement extends AbstractBaseElement {
 	private Integer startQuantity;
 	private List<AbstractCondition> prePostConditionList;
 	private List<DataObject> dataInputList;
-	private List<DataObject> dataOutList;
+	private List<DataObject> dataOutputList;
 
 
 
@@ -38,7 +38,7 @@ public abstract class AbstractTaskElement extends AbstractBaseElement {
 		this.startQuantity = startQuantity;
 		this.prePostConditionList = prePostConditionList;
 		this.dataInputList = dataInputList;
-		this.dataOutList = dataOutList;
+		this.dataOutputList = dataOutList;
 	}
 
 	public int getCompletionQuantity() {
@@ -72,8 +72,8 @@ public abstract class AbstractTaskElement extends AbstractBaseElement {
 	public String getDataOutputs(){
 		String varArgs = "";
 
-		if(dataOutList != null && !dataOutList.isEmpty()){
-			for (DataObject dtOut : dataOutList) {
+		if(dataOutputList != null && !dataOutputList.isEmpty()){
+			for (DataObject dtOut : dataOutputList) {
 				varArgs += dtOut.toString()+" ,";
 			}
 		}
@@ -140,8 +140,8 @@ public abstract class AbstractTaskElement extends AbstractBaseElement {
 	}
 
 
-	public List<DataObject> getDataOutList() {
-		return dataOutList;
+	public List<DataObject> getDataOutputList() {
+		return dataOutputList;
 	}
 
 	public List<AbstractCondition> getPrePostConditionList() {

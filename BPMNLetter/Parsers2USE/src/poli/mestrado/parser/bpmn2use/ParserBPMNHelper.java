@@ -34,6 +34,7 @@ import poli.mestrado.parser.bpmn2use.tag.dataObject.DataObject;
 import poli.mestrado.parser.bpmn2use.tag.dataObject.DataObjectFactory;
 import poli.mestrado.parser.bpmn2use.tag.dataObject.DataOutput;
 import poli.mestrado.parser.bpmn2use.tag.event.EndEvent;
+import poli.mestrado.parser.bpmn2use.tag.event.EnumEventElementType;
 import poli.mestrado.parser.bpmn2use.tag.event.EventsFactory;
 import poli.mestrado.parser.bpmn2use.tag.event.IntermediateCatchEvent;
 import poli.mestrado.parser.bpmn2use.tag.event.IntermediateThrowEvent;
@@ -442,8 +443,22 @@ public class ParserBPMNHelper {
 				if(StrParallelMultiple != null && !StrParallelMultiple.equals("")){
 					parallelMultiple =  new Boolean(StrParallelMultiple);
 				}
-
-				specificKindofEventList.add(EventsFactory.buildEvent(tagName, id, name, getDocumentation(eventTag), isInterrupting, parallelMultiple));
+				
+				EnumEventElementType type = null;
+				for (int j = 0; j < eventTag.getChildNodes().getLength(); j++) {
+					if(eventTag.getChildNodes().item(j) instanceof Element){
+						Element typeTag = (Element) eventTag.getChildNodes().item(j);
+						type = EnumEventElementType.buildEnum(typeTag.getNodeName());
+						if(type != null){
+							break;
+						}
+					}
+				}
+				if(type == null){
+					type = EnumEventElementType.NONE;
+				}
+				
+				specificKindofEventList.add(EventsFactory.buildEvent(tagName, id, name, getDocumentation(eventTag), isInterrupting, parallelMultiple, type));
 			}
 		}
 

@@ -5,7 +5,7 @@ import java.util.List;
 import poli.mestrado.parser.bpmn2use.tag.AbstractBaseElement;
 import poli.mestrado.parser.bpmn2use.tag.Documentation;
 
-public class StartEvent extends AbstractBaseElement {
+public class StartEvent extends AbstractEventElement {
 	
 	public static final String TAG_NAME = "startEvent";
 	public static final String ISINTERRUPTIOG_TAG = "isInterrupting";
@@ -15,8 +15,8 @@ public class StartEvent extends AbstractBaseElement {
 	private Boolean parallelMultiple;
 	
 	public StartEvent(String id, String name, List<Documentation> documentationList, Boolean isInterrupting,
-			Boolean parallelMultiple) {
-		super(id, name, documentationList);
+			Boolean parallelMultiple, EnumEventElementType eventElementType) {
+		super(id, name, documentationList, eventElementType);
 		this.isInterrupting = isInterrupting;
 		this.parallelMultiple = parallelMultiple;
 	}

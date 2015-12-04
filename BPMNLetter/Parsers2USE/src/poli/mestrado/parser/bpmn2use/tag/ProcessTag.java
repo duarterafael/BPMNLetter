@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import poli.mestrado.parser.bpmn2use.tag.Swimlanes.LaneTag;
+import poli.mestrado.parser.bpmn2use.tag.Swimlanes.ParticipantTag;
 import poli.mestrado.parser.bpmn2use.tag.connectioElement.SequenceFlowTag;
 
 
