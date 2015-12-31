@@ -39,6 +39,8 @@ import poli.mestrado.parser.bpmn2use.tag.event.EventsFactory;
 import poli.mestrado.parser.bpmn2use.tag.event.IntermediateCatchEvent;
 import poli.mestrado.parser.bpmn2use.tag.event.IntermediateThrowEvent;
 import poli.mestrado.parser.bpmn2use.tag.event.StartEvent;
+import poli.mestrado.parser.bpmn2use.tag.event.definition.EventDefinition;
+import poli.mestrado.parser.bpmn2use.tag.event.definition.EventDefinitionType;
 import poli.mestrado.parser.bpmn2use.tag.gateway.AbstractGatewayElement;
 import poli.mestrado.parser.bpmn2use.tag.gateway.ComplexGateway;
 import poli.mestrado.parser.bpmn2use.tag.gateway.EnumEventGatewayType;
@@ -57,6 +59,7 @@ import poli.mestrado.parser.bpmn2use.tag.task.SendTask;
 import poli.mestrado.parser.bpmn2use.tag.task.ServiceTask;
 import poli.mestrado.parser.bpmn2use.tag.task.TaskFactory;
 import poli.mestrado.parser.bpmn2use.tag.task.UserTask;
+import poli.mestrado.parser.uml2use.tag.ICommunAttributeTag;
 
 
 
@@ -139,8 +142,9 @@ public class ParserBPMNHelper {
 		String id = messageFlowTag.getAttribute(ICommunProcessAttributeTag.ATTRIBUTE_TAG_ID);
 		String sourceRef = messageFlowTag.getAttribute(AbstractConnectionElement.ATTRIBUTE_TAG_SOURCE_REF);
 		String targetRef = messageFlowTag.getAttribute(AbstractConnectionElement.ATTRIBUTE_TAG_TARGET_REF);
+		String message = messageFlowTag.getAttribute(ICommunProcessAttributeTag.ATTRIBUTE_TAG_NAME);
 		
-		MessageFlowTag messageFlow = new MessageFlowTag(id,findElementById(processDiagram, sourceRef),findElementById(processDiagram, targetRef));
+		MessageFlowTag messageFlow = new MessageFlowTag(id,findElementById(processDiagram, sourceRef),findElementById(processDiagram, targetRef), message);
 		
 		return messageFlow;
 	}
@@ -444,21 +448,32 @@ public class ParserBPMNHelper {
 					parallelMultiple =  new Boolean(StrParallelMultiple);
 				}
 				
-				EnumEventElementType type = null;
+				EnumEventElementType type = EnumEventElementType.NONE;
+				EventDefinition definition = null;
+				EventDefinitionType eventDefinitionType = EventDefinitionType.NONE;
+				
 				for (int j = 0; j < eventTag.getChildNodes().getLength(); j++) {
 					if(eventTag.getChildNodes().item(j) instanceof Element){
 						Element typeTag = (Element) eventTag.getChildNodes().item(j);
 						type = EnumEventElementType.buildEnum(typeTag.getNodeName());
 						if(type != null){
+							for (int k = 0; k < typeTag.getChildNodes().getLength(); k++) {
+								if(typeTag.getChildNodes().item(k) instanceof Element){
+									Element definitionTag = (Element) typeTag.getChildNodes().item(k);
+									eventDefinitionType = EventDefinitionType.buildEnum(definitionTag.getNodeName());
+									if(eventDefinitionType != null){
+										definition = new EventDefinition(definitionTag.getAttribute(ICommunAttributeTag.ATTRIBUTE_TAG_ID), definitionTag.getTextContent(), eventDefinitionType);
+									}
+								}
+							}
 							break;
 						}
 					}
 				}
-				if(type == null){
-					type = EnumEventElementType.NONE;
-				}
 				
-				specificKindofEventList.add(EventsFactory.buildEvent(tagName, id, name, getDocumentation(eventTag), isInterrupting, parallelMultiple, type));
+				
+				
+				specificKindofEventList.add(EventsFactory.buildEvent(tagName, id, name, getDocumentation(eventTag), isInterrupting, parallelMultiple, type,definition));
 			}
 		}
 

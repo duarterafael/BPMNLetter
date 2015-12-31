@@ -8,7 +8,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -87,12 +91,8 @@ import org.yaoqiang.graph.util.GraphUtils;
 
 import poli.mestrado.document.management.DocumentHelper;
 import poli.mestrado.parser.bpmn2use.ParserBPMNHelper;
-import poli.mestrado.parser.bpmn2use.graph.Graph;
-import poli.mestrado.parser.bpmn2use.graph.GraphHelper;
-import poli.mestrado.parser.bpmn2use.graph.Vertice;
 import poli.mestrado.parser.bpmn2use.tag.ProcessDiagram;
 import poli.mestrado.parser.uml2use.UmlFileManager;
-import poli.mestrado.parser.util.MyConstants;
 
 import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.io.mxCodec;
@@ -377,68 +377,69 @@ public class ModelActions extends AbstractAction {
 				editor.getUndoManager().clear();
 			}
 		} else if(EXPORT_USE.equals(type)){
-				String wd;
-				boolean dialogShown = false;
-				String filename = null;
-				String ext = null;
-				File bpmnImageFile = null;
-				FileFilter wordFileFilter = new DefaultFileFilter(".doc", "Word " + mxResources.get("file") + " (.doc)");
-				FileFilter htmlFileFilter = new DefaultFileFilter(".html", "HTML " + mxResources.get("file") + " (.html)");
-				FileFilter PdfFileFilter = new DefaultFileFilter(".pdf", "PDF " + mxResources.get("file") + " (.pdf)");
-				
-				if (EditorConstants.LAST_OPEN_DIR != null) {
-					wd = EditorConstants.LAST_OPEN_DIR;
-				} else if (BPMNEditor.getCurrentFile() != null) {
-					wd = BPMNEditor.getCurrentFile().getParent();
-				} else {
-					wd = System.getProperty("user.dir");
-				}
 
-				JFileChooser fc = new JFileChooser(wd);
-				fc.setAcceptAllFileFilterUsed(false);
-				if (BPMNEditor.getCurrentFile() != null) {
-					String name = BPMNEditor.getCurrentFile().getName();
-					if (name.endsWith(".bpmn20.xml")) {
-						name = name.substring(0, name.lastIndexOf(".bpmn20.xml"));
-					} else {
-						name = name.substring(0, name.lastIndexOf("."));
-					}
-					fc.setSelectedFile(new File(name));
-				}
-				fc.addChoosableFileFilter(wordFileFilter);
-				fc.addChoosableFileFilter(htmlFileFilter);
-				fc.addChoosableFileFilter(PdfFileFilter);
-				
-				int rc = fc.showDialog(null, "3".equals(stringValue) ? mxResources.get("savePNGfile") : mxResources.get("save"));
-				dialogShown = true;
-				if (rc != JFileChooser.APPROVE_OPTION) {
-					return;
+			String wd;
+			boolean dialogShown = false;
+			String filename = null;
+			String ext = null;
+			File bpmnImageFile = null;
+			FileFilter wordFileFilter = new DefaultFileFilter(".doc", "Word " + mxResources.get("file") + " (.doc)");
+			FileFilter htmlFileFilter = new DefaultFileFilter(".html", "HTML " + mxResources.get("file") + " (.html)");
+			FileFilter PdfFileFilter = new DefaultFileFilter(".pdf", "PDF " + mxResources.get("file") + " (.pdf)");
+
+			if (EditorConstants.LAST_OPEN_DIR != null) {
+				wd = EditorConstants.LAST_OPEN_DIR;
+			} else if (BPMNEditor.getCurrentFile() != null) {
+				wd = BPMNEditor.getCurrentFile().getParent();
+			} else {
+				wd = System.getProperty("user.dir");
+			}
+
+			JFileChooser fc = new JFileChooser(wd);
+			fc.setAcceptAllFileFilterUsed(false);
+			if (BPMNEditor.getCurrentFile() != null) {
+				String name = BPMNEditor.getCurrentFile().getName();
+				if (name.endsWith(".bpmn20.xml")) {
+					name = name.substring(0, name.lastIndexOf(".bpmn20.xml"));
 				} else {
-					EditorConstants.LAST_OPEN_DIR = fc.getSelectedFile().getParent();
-					Utils.saveToConfigureFile("lastOpenDir", EditorConstants.LAST_OPEN_DIR);
+					name = name.substring(0, name.lastIndexOf("."));
 				}
-				
-				filename = fc.getSelectedFile().getAbsolutePath();
-				ext = fc.getFileFilter().getDescription().substring(fc.getFileFilter().getDescription().lastIndexOf("(")+1, fc.getFileFilter().getDescription().lastIndexOf("")-1);
-				
-				String documentPath = "";
-				if(!filename.contains(".")){
-					documentPath = filename+ext; 
-				}else{
-					documentPath = filename;
-				}
-				
-				File documentFile = new File(documentPath);
-				if (documentFile.exists()
-						&& JOptionPane.showConfirmDialog(graphComponent, mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
-					return;
-				}
-				
-				documentFile.delete();
-				
-				
-				try {
-				
+				fc.setSelectedFile(new File(name));
+			}
+			fc.addChoosableFileFilter(wordFileFilter);
+			fc.addChoosableFileFilter(htmlFileFilter);
+			fc.addChoosableFileFilter(PdfFileFilter);
+
+			int rc = fc.showDialog(null, "3".equals(stringValue) ? mxResources.get("savePNGfile") : mxResources.get("save"));
+			dialogShown = true;
+			if (rc != JFileChooser.APPROVE_OPTION) {
+				return;
+			} else {
+				EditorConstants.LAST_OPEN_DIR = fc.getSelectedFile().getParent();
+				Utils.saveToConfigureFile("lastOpenDir", EditorConstants.LAST_OPEN_DIR);
+			}
+
+			filename = fc.getSelectedFile().getAbsolutePath();
+			ext = fc.getFileFilter().getDescription().substring(fc.getFileFilter().getDescription().lastIndexOf("(")+1, fc.getFileFilter().getDescription().lastIndexOf("")-1);
+
+			String documentPath = "";
+			if(!filename.contains(".")){
+				documentPath = filename+ext; 
+			}else{
+				documentPath = filename;
+			}
+
+			File documentFile = new File(documentPath);
+			if (documentFile.exists()
+					&& JOptionPane.showConfirmDialog(graphComponent, mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
+				return;
+			}
+
+			documentFile.delete();
+
+
+			try {
+
 				String path = UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().substring(0, UmlFileManager.getInstance().getExportXmiFile().getAbsolutePath().lastIndexOf(File.separator)+1);
 				File bpmnFile = new File(path+"bpmnmodel.bpmn");
 				if(bpmnFile.exists()){
@@ -470,12 +471,12 @@ public class ModelActions extends AbstractAction {
 					editor.getFragmentsPalette().addFragmentTemplate(new File(imagefilename));
 					editor.getFragmentsPalette().setPreferredCols(1, 195 * image.getHeight() / image.getWidth());
 				}
-				
+
 				System.out.println("O arquivo BPMN foi salvo com sucesso!");
 				//------------------------------------Comente daqui
 				Thread.sleep(3000);
 				ProcessDiagram processDiagram = ParserBPMNHelper.getInstance().getProcessDiagram();
-				
+
 				DocumentHelper.getInstance().geneareDocument(documentPath, processDiagram);
 
 				JOptionPane.showMessageDialog(graphComponent, "A carta foi salva em: "+documentPath, mxResources.get("warning"), JOptionPane.WARNING_MESSAGE);
