@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.BreakType;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -24,19 +25,18 @@ public class WordDocumentHelper implements IDocumentMaker{
 	private static WordDocumentHelper instance = null;
 	private XWPFDocument document = null;
 	private FileOutputStream out;
+	private static File file;
 	private WordDocumentHelper (String documentPath) throws FileNotFoundException{
 		//Blank Document
 		document= new XWPFDocument(); 
 		//Write the Document in file system
-		out = new FileOutputStream(new File(documentPath));
-
-
 	}
 
 	public static WordDocumentHelper getInstance(String documentPath) throws FileNotFoundException{
 		if(instance == null){
 			instance = new WordDocumentHelper(documentPath);
 		}
+		file = new File(documentPath);
 		return instance;
 	}
 
@@ -50,15 +50,10 @@ public class WordDocumentHelper implements IDocumentMaker{
 	public void insertImage(String imagePaht) throws FileNotFoundException{
 		try {
 			InputStream image = new FileInputStream(new File(imagePaht));
-			document.createParagraph().createRun().addPicture(image, XWPFDocument.PICTURE_TYPE_JPEG, "my pic", Units.toEMU(500), Units.toEMU(500));
-			changeOrientation(document, "landscape");
+			document.createParagraph().createRun().addPicture(image, XWPFDocument.PICTURE_TYPE_JPEG, "my pic", Units.toEMU(450), Units.toEMU(300));
 			XWPFParagraph paragraph = document.createParagraph();
 			XWPFRun run=paragraph.createRun();
 			run.addCarriageReturn();                 //separate previous text from break
-			run.addBreak(BreakType.PAGE);
-			run.addBreak(BreakType.TEXT_WRAPPING); 
-			changeOrientation(document, "portrate");
-
 		} catch (InvalidFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,14 +64,42 @@ public class WordDocumentHelper implements IDocumentMaker{
 	}
 
 	public void finishDocument() throws IOException{
-		document.write(out);
-		out.close();
+		document.write(new FileOutputStream(file));
 	}
 
 	public void insertCapa(String content) {
 		//create Paragraph
 		XWPFParagraph paragraph = document.createParagraph();
+		paragraph.setAlignment(ParagraphAlignment.CENTER);
 		XWPFRun run=paragraph.createRun();
+		for (int i = 0; i < 10; i++) {
+			run.addBreak();
+		}
+		run.setBold(true);
+		run.setFontSize(24);
+		run.setText(content);
+		run.addCarriageReturn();                 //separate previous text from break
+		run.addBreak(BreakType.PAGE);
+		run.addBreak(BreakType.TEXT_WRAPPING); 
+
+	}
+	
+	public void insertText(String content) {
+		//create Paragraph
+		XWPFParagraph paragraph = document.createParagraph();
+		paragraph.setAlignment(ParagraphAlignment.BOTH);
+		XWPFRun run=paragraph.createRun();
+//		 if (content.contains("\n")) {
+//             String[] lines = content.split("\n");
+//             run.setText(lines[0], 0); // set first line into XWPFRun
+//             for(int i=1;i<lines.length;i++){
+//                 // add break and insert new text
+//                 run.addBreak();
+//                 run.setText(lines[i]);
+//             }
+//         } else {
+//             run.setText(content, 0);
+//         }
 		run.setText(content);
 		run.addCarriageReturn();                 //separate previous text from break
 		run.addBreak(BreakType.PAGE);

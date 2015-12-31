@@ -215,7 +215,7 @@ public class GraphHelper {
 
 				//O gateway Exclusivo escolhe um caminho que atenda a uma das condições descritas nas arestas que partem do gateway fork
 				//Sendo assim casa fragemto de caminho sera anexado a uma copida dos caminhos que porssuem ultimo vertice o gateway fork em questão
-				if(v.getVeriticeElement() instanceof ExclusiveGateway){
+				if(v.getVeriticeElement() instanceof ExclusiveGateway || v.getVeriticeElement() instanceof ParallelGateway){
 
 					//Esse primeiro for faz um cópia de todos os caminhos, aqueles que tem o ultimo vertice igual ao gateway em questão são copiados na quantidade de fragmentos de caminhos existentes
 					for (List<Vertice> caminhoAntigo : listaCaminhos) {
@@ -239,49 +239,50 @@ public class GraphHelper {
 						}
 					}
 
-				}else if(v.getVeriticeElement() instanceof ParallelGateway){
-					// O gateway paralelo não gera caminhos divergentes o primeiro vertice de cada caminho e acessado para cada fragmente de caminho depois o segundo e assim sucessivamente
-					List<Vertice> caminhoParalelo = new ArrayList<Vertice>();
-					int tam_maior_lista = -1;
-					for (List<Vertice> caminhoAtual : listaFragmentosCaminhos) {
-						if(caminhoAtual.size() > tam_maior_lista){
-							tam_maior_lista = caminhoAtual.size();
-
-						}
-					}
-
-					int i = 0;
-					int K = 0;
-					do{
-
-						if(i<listaFragmentosCaminhos.get(K).size()){
-							//							System.out.println(listaCaminhosAux.get(K).get(i));
-							caminhoParalelo.add(listaFragmentosCaminhos.get(K).get(i));
-						}
-
-						if(K == listaFragmentosCaminhos.size()-1){
-							i++;
-							K = 0;
-							continue;
-						}else{
-							K++;
-						}
-					}while(i<tam_maior_lista && K <listaFragmentosCaminhos.size());
-
-					//Esse primeiro for faz um cópia de todos os caminhos, aqueles que tem o ultimo vertice igual ao gateway em questão são copiados na quantidade de fragmentos de caminhos existentes
-					for (List<Vertice> caminhoAntigo : listaCaminhos) {
-						listaCaminhosAux.add(new LinkedList<Vertice>(caminhoAntigo));
-					}
-
-					//Add o fragmento de caminho no caminho certo
-					for (List<Vertice> fragmentoCaminhoAux : listaCaminhosAux) {
-						if(fragmentoCaminhoAux.get(fragmentoCaminhoAux.size()-1).equals(v)){
-							fragmentoCaminhoAux.addAll(caminhoParalelo);
-						}
-					}
-
-
 				}
+//					else if(v.getVeriticeElement() instanceof ParallelGateway){
+//					// O gateway paralelo não gera caminhos divergentes o primeiro vertice de cada caminho e acessado para cada fragmente de caminho depois o segundo e assim sucessivamente
+//					List<Vertice> caminhoParalelo = new ArrayList<Vertice>();
+//					int tam_maior_lista = -1;
+//					for (List<Vertice> caminhoAtual : listaFragmentosCaminhos) {
+//						if(caminhoAtual.size() > tam_maior_lista){
+//							tam_maior_lista = caminhoAtual.size();
+//
+//						}
+//					}
+//
+//					int i = 0;
+//					int K = 0;
+//					do{
+//
+//						if(i<listaFragmentosCaminhos.get(K).size()){
+//							//							System.out.println(listaCaminhosAux.get(K).get(i));
+//							caminhoParalelo.add(listaFragmentosCaminhos.get(K).get(i));
+//						}
+//
+//						if(K == listaFragmentosCaminhos.size()-1){
+//							i++;
+//							K = 0;
+//							continue;
+//						}else{
+//							K++;
+//						}
+//					}while(i<tam_maior_lista && K <listaFragmentosCaminhos.size());
+//
+//					//Esse primeiro for faz um cópia de todos os caminhos, aqueles que tem o ultimo vertice igual ao gateway em questão são copiados na quantidade de fragmentos de caminhos existentes
+//					for (List<Vertice> caminhoAntigo : listaCaminhos) {
+//						listaCaminhosAux.add(new LinkedList<Vertice>(caminhoAntigo));
+//					}
+//
+//					//Add o fragmento de caminho no caminho certo
+//					for (List<Vertice> fragmentoCaminhoAux : listaCaminhosAux) {
+//						if(fragmentoCaminhoAux.get(fragmentoCaminhoAux.size()-1).equals(v)){
+//							fragmentoCaminhoAux.addAll(caminhoParalelo);
+//						}
+//					}
+//
+//
+//				}
 				//Passa a referencia da lista de caminhos mais atual para variavel que será retornada
 				listaCaminhos = listaCaminhosAux;
 
@@ -434,6 +435,7 @@ public class GraphHelper {
 							alcancados.remove(w);
 							explorados.add(w);
 							//
+							System.out.println(w.getVeriticeElement().getId());
 							w = arestaInexplorada.getTargetVertice();
 
 						}
@@ -466,50 +468,52 @@ public class GraphHelper {
 
 				//O gateway Exclusivo escolhe um caminho que atenda a uma das condições descritas nas arestas que partem do gateway fork
 				//Sendo assim casa fragemto de caminho sera anexado a uma copida dos caminhos que porssuem ultimo vertice o gateway fork em questão
-				if(v.getVeriticeElement() instanceof ExclusiveGateway){
+				if(v.getVeriticeElement() instanceof ExclusiveGateway || v.getVeriticeElement() instanceof ParallelGateway){
 
 					listaCaminhos.addAll(listaFragmentosCaminhos);
-				}else if(v.getVeriticeElement() instanceof ParallelGateway){
-					// O gateway paralelo não gera caminhos divergentes o primeiro vertice de cada caminho e acessado para cada fragmente de caminho depois o segundo e assim sucessivamente
-					List<Vertice> caminhoParalelo = new ArrayList<Vertice>();
-					int tam_maior_lista = -1;
-					for (List<Vertice> caminhoAtual : listaFragmentosCaminhos) {
-						if(caminhoAtual.size() > tam_maior_lista){
-							tam_maior_lista = caminhoAtual.size();
-
-						}
-					}
-
-					int i = 0;
-					int K = 0;
-					do{
-
-						if(i<listaFragmentosCaminhos.get(K).size()){
-							//							System.out.println(listaCaminhosAux.get(K).get(i));
-							caminhoParalelo.add(listaFragmentosCaminhos.get(K).get(i));
-						}
-
-						if(K == listaFragmentosCaminhos.size()-1){
-							i++;
-							K = 0;
-							continue;
-						}else{
-							K++;
-						}
-					}while(i<tam_maior_lista && K <listaFragmentosCaminhos.size());
-
-
-					listaCaminhos.get(listaCaminhos.size()-1).addAll(caminhoParalelo);
-
-
 				}
+//				else if(v.getVeriticeElement() instanceof ParallelGateway){
+//					// O gateway paralelo não gera caminhos divergentes o primeiro vertice de cada caminho e acessado para cada fragmente de caminho depois o segundo e assim sucessivamente
+//					List<Vertice> caminhoParalelo = new ArrayList<Vertice>();
+//					int tam_maior_lista = -1;
+//					for (List<Vertice> caminhoAtual : listaFragmentosCaminhos) {
+//						if(caminhoAtual.size() > tam_maior_lista){
+//							tam_maior_lista = caminhoAtual.size();
+//
+//						}
+//					}
+//
+//					int i = 0;
+//					int K = 0;
+//					do{
+//
+//						if(i<listaFragmentosCaminhos.get(K).size()){
+//							//							System.out.println(listaCaminhosAux.get(K).get(i));
+//							caminhoParalelo.add(listaFragmentosCaminhos.get(K).get(i));
+//						}
+//
+//						if(K == listaFragmentosCaminhos.size()-1){
+//							i++;
+//							K = 0;
+//							continue;
+//						}else{
+//							K++;
+//						}
+//					}while(i<tam_maior_lista && K <listaFragmentosCaminhos.size());
+//
+//
+//					listaCaminhos.get(listaCaminhos.size()-1).addAll(caminhoParalelo);
+//
+//
+//				}
 
 				alcancados.remove(v);
 				explorados.add(v);
 
 
 
-			}else{
+			}
+			else{
 
 				//Obtem todas as arestas que possuem o vertice em gestão com vertice de origem
 				List<Edge> arestas = getAllEdgeLinkedToVertice(v, MyConstants.SOURCE_VERTICE);

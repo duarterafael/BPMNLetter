@@ -11,12 +11,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -842,6 +847,24 @@ public class BPMNEditor extends BaseEditor {
 				new WarningDialog("warningNoDictionary").setVisible(true);
 			}
 		}
+		
+		
+		//-------------------
+//		SimpleDateFormat dateFormatter = new SimpleDateFormat("y-M-d-h-m-s");
+//		String date = dateFormatter.format(Calendar.getInstance().getTime());
+//		File file =  new File("BPMNLetter_"+date+".log");
+//		System.out.println("Log file path: "+file.getAbsolutePath());
+//		File file1 =  new File("BPMNLetter_erro"+date+".log");
+//		System.out.println("Log error file path: "+file1.getAbsolutePath());
+//		try {
+//			System.setOut(new PrintStream(new FileOutputStream(file.getAbsolutePath())));
+//			System.setErr(new PrintStream(new FileOutputStream(file1.getAbsolutePath())));
+//		} catch (FileNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		
+		//--------------
 
 	}
 }

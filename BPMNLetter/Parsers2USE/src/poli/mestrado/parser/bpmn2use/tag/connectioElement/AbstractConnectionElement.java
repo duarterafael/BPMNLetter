@@ -7,6 +7,7 @@ public abstract class AbstractConnectionElement {
 	public static final String ATTRIBUTE_TAG_SOURCE_REF = "sourceRef";
 	public static final String ATTRIBUTE_TAG_TARGET_REF = "targetRef";
 	
+	
 	private String id;
 	private AbstractBaseElement sourceRef;
 	private AbstractBaseElement targetRef;
